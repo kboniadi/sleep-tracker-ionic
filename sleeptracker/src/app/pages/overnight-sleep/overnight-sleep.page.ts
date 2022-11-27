@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ToastController } from "@ionic/angular";
 import { OvernightSleepData } from "src/app/data/overnight-sleep-data";
 import { SleepService } from "src/app/services/sleep.service";
+import { Haptics } from '@capacitor/haptics';
 
 @Component({
   selector: "app-overnight-sleep",
@@ -34,8 +35,13 @@ export class OvernightSleepPage implements OnInit {
     await toast.present();
   }
 
+  hapticsVibrate = async () => {
+    await Haptics.vibrate();
+  };
+
   async onAddLogClick() {
     if (!this.sleepStart || !this.sleepEnd) {
+      await this.hapticsVibrate();
       await this.presentToast(1500, "failed to add log", "danger");
       return;
     }

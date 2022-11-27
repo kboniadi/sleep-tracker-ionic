@@ -31,5 +31,13 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <div *ngIf="showSleepinessData">test2</div>
+  <div *ngIf="showSleepinessData">
+    <ion-card *ngFor="let log of sleepinessData">
+      <ion-card-header>
+        <ion-card-subtitle>{{log.loggedAt}}</ion-card-subtitle>
+        <ion-card-title>{{log.dateString()}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>{{log.summaryString()}}</ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

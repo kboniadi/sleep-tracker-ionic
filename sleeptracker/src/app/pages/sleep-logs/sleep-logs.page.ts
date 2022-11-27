@@ -19,8 +19,8 @@ export class SleepLogsPage implements OnInit {
   ngOnInit() {
     this.showSleepData = true;
     this.showSleepinessData = false;
-    this.overnightSleepData = SleepService.AllOvernightData;
-    this.sleepinessData = SleepService.AllSleepinessData;
+    this.overnightSleepData = SleepService.AllOvernightData.reverse();
+    this.sleepinessData = SleepService.AllSleepinessData.reverse();
   }
 
   onTabChange(event: any) {

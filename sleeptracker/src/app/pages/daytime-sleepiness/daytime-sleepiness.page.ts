@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { PickerController, ToastController } from "@ionic/angular";
 import { StanfordSleepinessData } from "src/app/data/stanford-sleepiness-data";
 import { SleepService } from "src/app/services/sleep.service";
+import { Haptics } from '@capacitor/haptics';
 
 @Component({
   selector: "app-daytime-sleepiness",
@@ -19,7 +20,7 @@ export class DaytimeSleepinessPage implements OnInit {
     private toastController: ToastController
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.mostRecentSleepiness = SleepService.AllSleepinessData.slice(-10).reverse();
   }
 
@@ -34,8 +35,13 @@ export class DaytimeSleepinessPage implements OnInit {
     await toast.present();
   }
 
+  hapticsVibrate = async () => {
+    await Haptics.vibrate();
+  };
+
   async onAddLogClick() {
     if (!this.rating || !this.dateTime) {
+      await this.hapticsVibrate();
       await this.presentToast(1500, "failed to add log", "danger")
       return;
     }
@@ -44,7 +50,7 @@ export class DaytimeSleepinessPage implements OnInit {
       this.rating,
       new Date(this.dateTime)
     );
-
+    
     this.service.logSleepinessData(standfordSleepinessData);
     
     this.mostRecentSleepiness = SleepService.AllSleepinessData.slice(-10).reverse();
