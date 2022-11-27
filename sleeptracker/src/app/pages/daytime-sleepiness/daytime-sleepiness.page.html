@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sleepiness</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item id="sleepiness-modal">
+          <ion-label>When:</ion-label>
+          <ion-note slot="end">{{dateTime | date: 'MMM dd, YYYY HH:mm'}}</ion-note>
+        </ion-item>
+        <ion-modal trigger="sleepiness-modal" [cssClass]="'bottom-end'">
+          <ng-template>
+            <ion-datetime
+              presentation="date-time"
+              [(ngModel)]="dateTime"
+              size="cover"
+              [showDefaultButtons]="true"
+              [preferWheel]="true"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item (click)="openPicker()">
+          <ion-label>Degree of Sleepiness:</ion-label>
+          <ion-note slot="end">{{rating}}</ion-note>
+          <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-button (click)="onAddLogClick()"> Add log </ion-button>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 3rem">
+      <ion-col>
+        <ion-item>
+          <ion-label>Recently Added Entries</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let log of mostRecentSleepiness">
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{log.loggedAt}}</ion-card-subtitle>
+            <ion-card-title>{{log.dateString()}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>{{log.summaryString()}}</ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Record Sleep</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item id="sleep-start-modal">
+          <ion-label>Start:</ion-label>
+          <ion-note slot="end">{{sleepStart | date: 'MMM dd, YYYY HH:mm'}}</ion-note>
+        </ion-item>
+        <ion-modal trigger="sleep-start-modal" [cssClass]="'bottom-end'">
+          <ng-template>
+            <ion-datetime
+              presentation="date-time"
+              [(ngModel)]="sleepStart"
+              size="cover"
+              [showDefaultButtons]="true"
+              [preferWheel]="true"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item id="sleep-end-modal">
+          <ion-label>End:</ion-label>
+          <ion-note slot="end">{{sleepEnd | date: 'MMM dd, YYYY HH:mm'}}</ion-note>
+        </ion-item>
+        <ion-modal trigger="sleep-end-modal" [cssClass]="'bottom-end'">
+          <ng-template>
+            <ion-datetime
+              presentation="date-time"
+              [(ngModel)]="sleepEnd"
+              size="cover"
+              [showDefaultButtons]="true"
+              [preferWheel]="true"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-button (click)="onAddLogClick()"> Add log </ion-button>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 3rem">
+      <ion-col>
+        <ion-item>
+          <ion-label>Recently Added Entries</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let log of mostRecentSleepLogs">
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{log.loggedAt}}</ion-card-subtitle>
+            <ion-card-title>{{log.dateString()}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>{{log.summaryString()}}</ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

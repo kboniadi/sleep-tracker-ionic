@@ -15,8 +15,8 @@ export class SleepService {
 	constructor() {
 		if(SleepService.LoadDefaultData) {
 			this.addDefaultData();
-		SleepService.LoadDefaultData = false;
-	}
+			SleepService.LoadDefaultData = false;
+		}
 	}
 
 	private addDefaultData() {
