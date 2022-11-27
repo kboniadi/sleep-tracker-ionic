@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>sleep-logs</ion-title>
+    <ion-segment (ionChange)="onTabChange($event)" value="sleep-data">
+      <ion-segment-button value="sleep-data"> Sleep Data </ion-segment-button>
+      <ion-segment-button value="sleepiness-data"> Sleepiness Data </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div *ngIf="showSleepData">
+    <ion-card *ngFor="let log of overnightSleepData">
+      <ion-card-header>
+        <ion-card-subtitle>{{log.loggedAt}}</ion-card-subtitle>
+        <ion-card-title>{{log.dateString()}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <circle-progress
+          [percent]=getSleepGoalPercent(log)
+          [radius]="100"
+          [outerStrokeWidth]="16"
+          [innerStrokeWidth]="8"
+          [outerStrokeColor]=getSleepPercentColor(getSleepGoalPercent(log))
+          [innerStrokeColor]="'#C7E596'"
+          [animation]="true"
+          [animationDuration]="400"
+          [showTitle]="true"
+          [showUnits]="true"
+          [showSubtitle]="false"
+        ></circle-progress>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="showSleepinessData">test2</div>
 </ion-content>

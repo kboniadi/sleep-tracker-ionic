@@ -10,6 +10,10 @@ export class OvernightSleepData extends SleepData {
 		this.sleepEnd = sleepEnd;
 	}
 
+	totalSleepCycle(): number {
+		return this.sleepEnd.getTime() - this.sleepStart.getTime()
+	}
+	
 	summaryString():string {
 		var sleepStart_ms = this.sleepStart.getTime();
 		var sleepEnd_ms = this.sleepEnd.getTime();
