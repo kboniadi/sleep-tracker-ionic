@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ToastController } from "@ionic/angular";
 import { OvernightSleepData } from "src/app/data/overnight-sleep-data";
 import { SleepService } from "src/app/services/sleep.service";
-import { Haptics } from '@capacitor/haptics';
+import { Haptics } from "@capacitor/haptics";
 
 @Component({
   selector: "app-overnight-sleep",
@@ -53,5 +53,7 @@ export class OvernightSleepPage implements OnInit {
 
     this.service.logOvernightData(overnightSleepData);
     this.mostRecentSleepLogs = SleepService.AllOvernightData.slice(-10).reverse();
+    this.sleepStart = undefined;
+    this.sleepEnd = undefined;
   }
 }
